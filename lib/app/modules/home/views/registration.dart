@@ -15,9 +15,20 @@ class _RegistrationPgaeState extends State<RegistrationPgae> {
   final _passwordController = TextEditingController();
 
   Future signUp() async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim());
+    FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+    UserCredential uc = await _firebaseAuth.createUserWithEmailAndPassword(
+        email: _emailController.text, password: _passwordController.text);
+    print(uc.user!.uid);
+    print("user created");
+    // do stuff with uc.user.uid
+    // do stuff with uc.user.uid
+  }
+
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override
